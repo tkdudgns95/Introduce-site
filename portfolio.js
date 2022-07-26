@@ -1,33 +1,43 @@
 /* HEADER */
-window.onload = function() {scrollFunction()};
-window.onscroll = function() {scrollFunction()};
 
-function scrollFunction() {
-    var header = document.getElementById('header');
+window.onload = function() {scrollFunction()}; // 윈도우가 로드되었을 때 scrollFunction 호출됨.
+window.onscroll = function() {scrollFunction()}; // 윈도우에서 스크롤 이벤트가 발생 할 때 마다 호출되는 함수.
 
-    if(document.documentElement.scrollTop > 70) {
-        if(!header.classList.contains('navbar-fixed')) {
-            header.classList.add('navbar-fixed');
-            document.getElementsByTagName('body')[0].style.marginTop = '70px';
-            header.style.display = 'none';
-            setTimeout(function(){
-                header.style.display = 'block';
+function scrollFunction() { // 스크롤이 될 때 네비게이션바가 어떻게 보여질지 보여주는 함수.
+
+    var header = document.getElementById('header'); // header객체를 가져옴.
+
+    if(document.documentElement.scrollTop > 70) { // scrollTop 의 값이 70을 넘었을때,(스크롤을 아래로 내리다 보면 70을 넘게된다.)
+
+        if(!header.classList.contains('navbar-fixed')) { // 헤더라는 객체에 navbar-fixed가 없다면,
+            header.classList.add('navbar-fixed'); // 헤더 클래스 리스트에 navbar-fixed라는 함수를 추가하고,
+            document.getElementsByTagName('body')[0].style.marginTop = '70px'; // body 객체를 가지고와서, marginTop에 70px를 넣어줌. (고로, 위로부터 70px가 떨어지게됨.)
+            header.style.display = 'none'; // 헤더 스타일의 디스플레이 값을 none으로 바꿔주고,
+            setTimeout(function(){ // setTimeout 함수
+                header.style.display = 'block'; /* 40 밀리세컨드 이후에 호출되도록 하고, 헤더에 스타의 디스플레이 값을 block으로 넣어줌.(display ='none' 이후, 아주 짧은 순간 이후에 
+                     다시 블럭처리를 함으로써 페이드(Fade) 효과를 주기 위함이다. */ 
             }, 40);
         }
-    } else {
-        if(header.classList.contains('navbar-fixed')) {
-            header.classList.remove('navbar-fixed');
-            document.getElementsByTagName('body')[0].style.marginTop = '0';
+    } else // scrollTop의 값이 70을 넘지 않는다면,
+    
+    {
+        if(header.classList.contains('navbar-fixed')) { // 그리고, 헤더에 navbar-fixed라는 클래스가 있다면,
+            header.classList.remove('navbar-fixed'); // 헤더에서 navbar-fixed를 제거해주고,
+            document.getElementsByTagName('body')[0].style.marginTop = '0'; // body객체를 가지고와서, marginTop의 값을 0으로 설정해줌.
         }
 
     }
 }
 
-function menuToggle() {
-    document.getElementById('menu').classList.toggle('show');
-}
+function menuToggle() { // 메뉴 토글버튼을 눌렀을 때 호출되는 함수.
+    document.getElementById('menu').classList.toggle('show'); // menu 객체를 가져오고, 클래스 리스트에서 show라는 클래스를 토글시킴.
+} // 토글은 show라는 클래스가 없으면 추가를 하고, 있으면 제거를 해주는 함수.
 
-document.getElementById('toggleBtn').addEventListener('click', menuToggle);
+document.getElementById('toggleBtn').addEventListener('click', menuToggle); // 토글버튼을 눌렀을때(toggleBtn) 클릭이벤트가 발생하면, menutoggle함수를 호출함.
+
+
+
+
 
 /* WELCOME AREA */
 var imageSlideIndex = 1;
