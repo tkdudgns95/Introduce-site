@@ -40,7 +40,7 @@ document.getElementById('toggleBtn').addEventListener('click', menuToggle); // �
 
 
 /* WELCOME AREA */
-var imageSlideIndex = 1;
+var imageSlideIndex = 1; // imageSlideIndex 변수 선언, 현재 노출되어야하는 이미지슬라이드의 번호를 보관하고 있는 변수.
 
 showImageSlides(imageSlideIndex);
 
@@ -48,47 +48,51 @@ function imageSlideTimer() {
     plusImageSlides(1);
 }
 
-var imageTimer = setInterval(imageSlideTimer, 3000);
+var imageTimer = setInterval(imageSlideTimer, 3000); // setInterval에 의해서 imageSlideTimer 함수가 호출되고, 3초마다 호출하게끔 만듬.
 
 function plusImageSlides(n) {
-    clearInterval(imageTimer);
-    imageTimer = setInterval(imageSlideTimer, 3000);
+    clearInterval(imageTimer); // clearInterval로 imageTimer에 걸려있는 Interval를 없애줌.
+    imageTimer = setInterval(imageSlideTimer, 3000); // imageTimer에 새로 setInterval를 통해 imageSlideTimer에 3000으로 설정(중복을 피하기 위함.)
 
     showImageSlides(imageSlideIndex += n);
 }
 
 function currentImageSlide(n) {
-    clearInterval(imageTimer);
-    imageTimer = setInterval(imageSlideTimer, 3000);
+    clearInterval(imageTimer); // clearInterval로 imageTimer에 걸려있는 Interval를 없애줌
+    imageTimer = setInterval(imageSlideTimer, 3000); // imageTimer에 새로 setInterval를 통해 imageSlideTimer에 3000으로 설정(중복을 피하기 위함.)
     
     showImageSlides(imageSlideIndex = n);
 
 }
 
-function showImageSlides(n) {
-    var i;
-    var slides = document.getElementsByClassName('image-slide');
-    var dots = document.getElementsByClassName('dot');
-    if(n > slides.length) { imageSlideIndex = 1}
-    if(n < 1) { imageSlideIndex = slides.length }
-    for(i = 0; i < slides.length; i++) {
+function showImageSlides(n) { // 인자 값으로 전달된 n 값을 보고, 적절한 슬라이드를 보여주는 함수.
+    var i; // i 변수 선언.
+    var slides = document.getElementsByClassName('image-slide'); // slide변수 만든 후, 클래스 네임으로 image-slide를 가져옴.
+    var dots = document.getElementsByClassName('dot'); // dots로 dot 객체를 가져옴.
+    if(n > slides.length) { imageSlideIndex = 1} // 만약에, n 값이 slides.length 값보다 크다면, imageSlideIndex에 1을 넣어준다.
+    if(n < 1) { imageSlideIndex = slides.length } // n값이 1보다 작다면, imageSlideIndex에 slides.length 값을 넣어준다.
+    for(i = 0; i < slides.length; i++) { // for문을 이용해서 모두 안보이게끔 처리. 
         slides[i].style.display = 'none';
     }
-    for(i = 0; i < dots.length; i++) {
+
+    for(i = 0; i < dots.length; i++) { // for문으로 active 값을 ''로 없애주는 것.
         dots[i].className = dots[i].className.replace(' active', '');
     }
-    slides[imageSlideIndex - 1].style.display = 'block';
-    dots[imageSlideIndex - 1].className += ' active';
+
+    slides[imageSlideIndex - 1].style.display = 'block'; // imageSlideIndex에서 -1을 하고, 스타일 디스플레이를 block으로 바꿔줌.
+    dots[imageSlideIndex - 1].className += ' active'; // dots도 active클래스를 추가해줌.
 
 }
 
-document.getElementById('imagePrev').addEventListener('click', plusImageSlides.bind(null, -1));
-document.getElementById('imageNext').addEventListener('click', plusImageSlides.bind(null, 1));
+document.getElementById('imagePrev').addEventListener('click', plusImageSlides.bind(null, -1)); // plusImageSlides의 값을 bind로 null처리를 해준 다음, -1을 넣어줌.(Prev)
+document.getElementById('imageNext').addEventListener('click', plusImageSlides.bind(null, 1)); // plusImageSlides의 값을 bind로 null처리를 해준 다음, 1을 넣어줌 (Next)
 
-document.getElementById('firstDot').addEventListener('click', currentImageSlide.bind(null, 1));
-document.getElementById('secondDot').addEventListener('click', currentImageSlide.bind(null, 2));
-document.getElementById('thirdDot').addEventListener('click', currentImageSlide.bind(null, 3));
-document.getElementById('forthDot').addEventListener('click', currentImageSlide.bind(null, 4));
+document.getElementById('firstDot').addEventListener('click', currentImageSlide.bind(null, 1)); // fistDot 객체를 Dot 클릭시 첫번째 슬라이드에 위치시, 첫번째 닷이 켜지도록 함.
+document.getElementById('secondDot').addEventListener('click', currentImageSlide.bind(null, 2)); // SecondDot 객체를 Dot 클릭시 두번째 슬라이드에 위치시, 두번째 닷이 켜지도록 함.
+document.getElementById('thirdDot').addEventListener('click', currentImageSlide.bind(null, 3)); // thirdDot 객체를 Dot 클릭시 세번째 슬라이드에 위치시, 세번째 닷이 켜지도록 함.
+document.getElementById('forthDot').addEventListener('click', currentImageSlide.bind(null, 4)); // forthDot 객체를 Dot 클릭시 네번째 슬라이드에 위치시, 네번째 닷이 켜지도록 함.
+
+
 
 /* PORTFOLIO AREA */
 filterSelection('all');
