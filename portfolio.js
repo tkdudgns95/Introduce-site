@@ -110,7 +110,7 @@ function filterSelection(id) { // 리스트 아이템을 보여주게끔 하는 
     if(id == 'all') id = ''; // id가 all일 경우에 id를 공백으로 초기화 시킴.
     for(i=0;i<x.length;i++) { // i는 0부터 x길이 까지 for문을 돌고
         removeClass(x[i], 'show'); // x[i] 배열에 show 클래스를 지워준다.
-        if(x[i].className.indexOf(id) > -1) { // x[i]에 클래스네임에 indexOf로 id값을 검색했을때, 리턴 값이 -1보다 크다면,
+        if(x[i].className.indexOf(id) > -1) { // x[i]에 클래스네임에 indexOf로 id값을 검색했을때, 리턴 값이 -1보다 크다면,(즉 존재하거나 공백이라면)
             addclass(x[i], 'show'); // x[i]에 show라는 클래스를 넣어준다.
         }
     }
