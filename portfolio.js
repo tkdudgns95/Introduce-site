@@ -95,44 +95,45 @@ document.getElementById('forthDot').addEventListener('click', currentImageSlide.
 
 
 /* PORTFOLIO AREA */
-filterSelection('all');
+filterSelection('all'); // 버튼 이벤트 클릭전 (137줄부터) 'all'을 호출하여 사진이 처음부터 전부 보여지게 함.
 
-function filterSelection(id) {
-    var x, i;
+function filterSelection(id) { // 리스트 아이템을 보여주게끔 하는 함수.
+    var x, i; // x와 i 변수 만들기.
 
-    x = document.getElementsByClassName('listItem');
-    for(i=0; i<x.length;i++) {
+    x = document.getElementsByClassName('listItem'); // x에 get클래스로 listItem을 가져옴.
+    for(i=0; i<x.length;i++) { // for문으로 removeClass로 active를 제거함.
         removeClass(x[i], 'active');
     }
-    addclass(document.getElementById(id), 'active');
+    addclass(document.getElementById(id), 'active'); // addclass로 id 객체와 active이름을 넘겨준다.
 
-    x = document.getElementsByClassName('filterItem');
-    if(id == 'all') id = '';
-    for(i=0;i<x.length;i++) {
-        removeClass(x[i], 'show');
-        if(x[i].className.indexOf(id) > -1) {
-            addclass(x[i], 'show');
+    x = document.getElementsByClassName('filterItem'); // x에 get클래스로 filterItem을 가져온다.
+    if(id == 'all') id = ''; // id가 all일 경우에 id를 공백으로 초기화 시킴.
+    for(i=0;i<x.length;i++) { // i는 0부터 x길이 까지 for문을 돌고
+        removeClass(x[i], 'show'); // x[i] 배열에 show 클래스를 지워준다.
+        if(x[i].className.indexOf(id) > -1) { // x[i]에 클래스네임에 indexOf로 id값을 검색했을때, 리턴 값이 -1보다 크다면,
+            addclass(x[i], 'show'); // x[i]에 show라는 클래스를 넣어준다.
         }
     }
 }
 
-function addclass(element, name) {
-    if(element.className.indexOf(name) == -1 ) {
-        element.className += " " + name;
+function addclass(element, name) { 
+    if(element.className.indexOf(name) == -1 ) { // element 클래스 네임에 indexOf함수로 name이라는 클래스가 있는지 확인해봄, 만약 없다면(-1)
+        element.className += " " + name; // element 클래스 네임에 name이라는 클래스를 추가해줌.
     }
 }
 
 function removeClass(element, name) {
-    var arr;
-    arr = element.className.split(" ");
+    var arr; // arr 이라는 변수를 만듬.
+    arr = element.className.split(" "); // element클래스 네임에서 split함수를 호출하여,
 
-    while(arr.indexOf(name) > -1) {
-        arr.splice(arr.indexOf(name), 1);
+    while(arr.indexOf(name) > -1) { // while문에서 indexOf name클래스가 arr에 존재 한다면(> -1)
+        arr.splice(arr.indexOf(name), 1); // arr에 splice함수를 호출하여 indexOf(name)이 있는 클래스로부터 1개의 요소를 삭제를 합니다.
     }
 
-    element.className = arr.join(" ");
+    element.className = arr.join(" "); // element 클래스네임에 arr 조인함수(배열의 원소들을 연결해서 하나의 값으로 만듬)로 정리된 클래스 내용을 텍스트로 넣어주게됨(한칸의 공백을 넣어서 합쳐줌)
 }
 
+// 리스트 아이템에 클릭이벤트를 붙여서 연결해줌 (리스트 아이템에 매칭되는 결과를 가져오는 것이다.)
 document.getElementById('all').addEventListener('click', filterSelection.bind(null, 'all'));
 document.getElementById('uiux').addEventListener('click', filterSelection.bind(null, 'uiux'));
 document.getElementById('java').addEventListener('click', filterSelection.bind(null, 'java'));
